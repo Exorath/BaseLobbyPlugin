@@ -51,10 +51,10 @@ public class KeysText implements HUDText {
 
     @Override
     public Observable<List<TextComponent>> getTextObservable() {
-        return Observable.interval(interval, intervalUnit, scheduler).map(iteration -> {
+        return Observable.create(s -> {
             TextComponent amountComponent = new TextComponent(getSuffix(getKeys()));
             amountComponent.setColor(ChatColor.GOLD);
-            return Arrays.asList(KEYS_PREFIX, amountComponent);
+            s.onNext(Arrays.asList(KEYS_PREFIX, amountComponent));
         });
     }
 

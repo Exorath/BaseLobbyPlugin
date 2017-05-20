@@ -49,10 +49,10 @@ public class FragmentsText implements HUDText {
 
     @Override
     public Observable<List<TextComponent>> getTextObservable() {
-        return Observable.interval(interval, intervalUnit, scheduler).map(iteration -> {
+        return Observable.create(s -> {
             TextComponent amountComponent = new TextComponent(getSuffix(getFragments()));
             amountComponent.setColor(ChatColor.GOLD);
-            return Arrays.asList(FRAGMENT_PREFIX, amountComponent);
+            s.onNext(Arrays.asList(FRAGMENT_PREFIX, amountComponent));
         });
     }
 
