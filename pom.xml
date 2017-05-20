@@ -91,7 +91,7 @@
         <dependency>
             <groupId>com.github.Exorath</groupId>
             <artifactId>MysteryKeyService</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.4</version>
         </dependency>
     </dependencies>
 </project>

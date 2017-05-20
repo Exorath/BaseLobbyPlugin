@@ -37,8 +37,8 @@ public class Main extends JavaPlugin {
 
     private String getMysteryKeyServiceAddress(){
         String address = System.getenv("MYSTERYKEY_SERVICE_ADDRESS");
-        if(address == null || address == "")
-            Main.terminate("MYSTERY_SERVICE_ADDRESS env not provided.");
+        if(address == null || address.equals(""))
+            Main.terminate("MYSTERYKEY_SERVICE_ADDRESS env not provided.");
         return address;
     }
 
