@@ -17,6 +17,7 @@
 package com.exorath.plugin.baseLobby.hud.hudPackages;
 
 import com.exorath.exoHUD.HUDText;
+import com.exorath.service.mysteryKey.api.MysteryKeyServiceAPI;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -26,7 +27,6 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by toonsev on 5/19/2017.
@@ -36,24 +36,24 @@ public class FragmentsText implements HUDText {
     static {
         FragmentsText.FRAGMENT_PREFIX.setColor(ChatColor.WHITE);
     }
-    private static final long interval = 30;
-    private static final TimeUnit intervalUnit = TimeUnit.SECONDS;
 
     private Scheduler scheduler = Schedulers.io();
 
+    private MysteryKeyServiceAPI mysteryKeyServiceAPI;
     private Player player;
 
-    public FragmentsText(Player player) {
+    public FragmentsText(MysteryKeyServiceAPI mysteryKeyServiceAPI, Player player) {
+        this.mysteryKeyServiceAPI = mysteryKeyServiceAPI;
         this.player = player;
     }
 
     @Override
     public Observable<List<TextComponent>> getTextObservable() {
-        return Observable.create(s -> {
+        return Observable.<List<TextComponent>>create(s -> {
             TextComponent amountComponent = new TextComponent(getSuffix(getFragments()));
             amountComponent.setColor(ChatColor.GOLD);
             s.onNext(Arrays.asList(FRAGMENT_PREFIX, amountComponent));
-        });
+        }).subscribeOn(Schedulers.io());
     }
 
     private String getSuffix(int fragments) {
@@ -78,6 +78,6 @@ public class FragmentsText implements HUDText {
     }
 
     private int getFragments() {
-        return 0;
+        return mysteryKeyServiceAPI.getPlayer(player.getUniqueId().toString()).getFragments();
     }
 }

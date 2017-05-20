@@ -20,6 +20,7 @@ import com.exorath.plugin.base.ExoBaseAPI;
 import com.exorath.plugin.baseLobby.connector.BaseAPIManager;
 import com.exorath.plugin.baseLobby.hud.HudManager;
 import com.exorath.plugin.baseLobby.maps.MapsManager;
+import com.exorath.service.mysteryKey.api.MysteryKeyServiceAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,7 +32,14 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new MapsManager(), this);
         Bukkit.getPluginManager().registerEvents(new BaseAPIManager(getConfig().getString("gameId"), ExoBaseAPI.getInstance()), this);
-        Bukkit.getPluginManager().registerEvents(new HudManager(), this);
+        Bukkit.getPluginManager().registerEvents(new HudManager(new MysteryKeyServiceAPI(getMysteryKeyServiceAddress())), this);
+    }
+
+    private String getMysteryKeyServiceAddress(){
+        String address = System.getenv("MYSTERYKEY_SERVICE_ADDRESS");
+        if(address == null || address == "")
+            Main.terminate("MYSTERY_SERVICE_ADDRESS env not provided.");
+        return address;
     }
 
     public static void terminate() {

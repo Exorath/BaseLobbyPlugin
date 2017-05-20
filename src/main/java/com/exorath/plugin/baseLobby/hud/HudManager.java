@@ -23,6 +23,7 @@ import com.exorath.exoHUD.plugin.HudAPI;
 import com.exorath.exoHUD.removers.NeverRemover;
 import com.exorath.exoHUD.texts.PlainText;
 import com.exorath.plugin.baseLobby.hud.hudPackages.FragmentsAndKeysText;
+import com.exorath.service.mysteryKey.api.MysteryKeyServiceAPI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -33,10 +34,16 @@ import java.util.Arrays;
  * Created by toonsev on 5/19/2017.
  */
 public class HudManager  implements Listener {
+    private MysteryKeyServiceAPI mysteryKeyServiceAPI;
+
+    public HudManager(MysteryKeyServiceAPI mysteryKeyServiceAPI) {
+        this.mysteryKeyServiceAPI = mysteryKeyServiceAPI;
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         HUDPackage fragmentsAndKeysPackage = HUDPackage.create(
-                Arrays.asList(PlainText.plain(" "), new FragmentsAndKeysText(event.getPlayer())));
+                Arrays.asList(PlainText.plain(" "), new FragmentsAndKeysText(mysteryKeyServiceAPI, event.getPlayer())));
         HudAPI.getInstance().getHudPlayer(event.getPlayer()).getScoreboardLocation()
                 .addDisplayPackage(new DisplayPackage(fragmentsAndKeysPackage, DisplayProperties.create(0, NeverRemover.never())));
     }

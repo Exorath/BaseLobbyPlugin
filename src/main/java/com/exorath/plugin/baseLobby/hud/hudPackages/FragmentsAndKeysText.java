@@ -18,7 +18,7 @@ package com.exorath.plugin.baseLobby.hud.hudPackages;
 
 import com.exorath.exoHUD.HUDText;
 import com.exorath.exoHUD.texts.IterateText;
-import io.reactivex.Scheduler;
+import com.exorath.service.mysteryKey.api.MysteryKeyServiceAPI;
 import io.reactivex.schedulers.Schedulers;
 import org.bukkit.entity.Player;
 
@@ -28,11 +28,11 @@ import java.util.concurrent.TimeUnit;
  * Created by toonsev on 5/19/2017.
  */
 public class FragmentsAndKeysText extends IterateText {
-    public FragmentsAndKeysText(Player player) {
-        super(10, TimeUnit.SECONDS, Schedulers.computation(), getFragmentAndKeysTexts(player));
+    public FragmentsAndKeysText(MysteryKeyServiceAPI mysteryKeyServiceAPI, Player player) {
+        super(10, TimeUnit.SECONDS, Schedulers.computation(), getFragmentAndKeysTexts(mysteryKeyServiceAPI, player));
     }
 
-    private static HUDText[] getFragmentAndKeysTexts(Player player){
-        return new HUDText[]{new FragmentsText(player), new KeysText(player)};
+    private static HUDText[] getFragmentAndKeysTexts(MysteryKeyServiceAPI mysteryKeyServiceAPI, Player player){
+        return new HUDText[]{new FragmentsText(mysteryKeyServiceAPI, player), new KeysText(mysteryKeyServiceAPI, player)};
     }
 }
