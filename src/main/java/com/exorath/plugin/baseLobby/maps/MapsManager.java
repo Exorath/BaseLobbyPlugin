@@ -20,6 +20,7 @@ import com.exorath.plugin.baseLobby.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.io.File;
@@ -65,5 +66,10 @@ public class MapsManager implements Listener{
     @EventHandler
     public void onPlayerSpawnLocationReq(PlayerSpawnLocationEvent event){
         event.setSpawnLocation(getLobbyMap().getSpawn());
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent event){
+        event.setRespawnLocation(getLobbyMap().getSpawn());
     }
 }
