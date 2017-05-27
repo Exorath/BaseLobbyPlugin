@@ -19,8 +19,10 @@ package com.exorath.plugin.baseLobby.maps;
 import com.exorath.plugin.baseLobby.Main;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
@@ -73,6 +75,14 @@ public class MapsManager implements Listener{
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event){
         event.setRespawnLocation(getLobbyMap().getSpawn());
+    }
+
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent event){
+        if(event.getEntity() instanceof Player){
+            if(event.getCause() == EntityDamageEvent.DamageCause.VOID)
+                event.getEntity().teleport(getLobbyMap().getSpawn());
+        }
     }
 
     @EventHandler
