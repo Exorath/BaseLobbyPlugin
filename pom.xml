@@ -66,12 +66,12 @@
     </repositories>
 
     <dependencies>
-    <dependency>
-        <groupId>org.spigotmc</groupId>
-        <artifactId>spigot-api</artifactId>
-        <version>1.11.2-R0.1-SNAPSHOT</version>
-        <scope>provided</scope>
-    </dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.11.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.github.Exorath</groupId>
             <artifactId>ExoBasePlugin</artifactId>
@@ -92,6 +92,11 @@
             <groupId>com.github.Exorath</groupId>
             <artifactId>MysteryKeyService</artifactId>
             <version>0.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Exorath</groupId>
+            <artifactId>ExoProtection</artifactId>
+            <version>0.0.2</version>
         </dependency>
     </dependencies>
 </project>

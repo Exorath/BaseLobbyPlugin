@@ -16,10 +16,12 @@
 
 package com.exorath.plugin.baseLobby;
 
+import com.exorath.exoProtection.ProtectionListener;
 import com.exorath.plugin.base.ExoBaseAPI;
 import com.exorath.plugin.baseLobby.connector.BaseAPIManager;
 import com.exorath.plugin.baseLobby.hud.HudManager;
 import com.exorath.plugin.baseLobby.maps.MapsManager;
+import com.exorath.plugin.baseLobby.protection.LobbyProtectionConfiguration;
 import com.exorath.service.mysteryKey.api.MysteryKeyServiceAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,6 +35,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MapsManager(), this);
         Bukkit.getPluginManager().registerEvents(new BaseAPIManager(getConfig().getString("gameId"), ExoBaseAPI.getInstance()), this);
         Bukkit.getPluginManager().registerEvents(new HudManager(new MysteryKeyServiceAPI(getMysteryKeyServiceAddress())), this);
+        Bukkit.getPluginManager().registerEvents(new ProtectionListener(new LobbyProtectionConfiguration()), this);
     }
 
     private String getMysteryKeyServiceAddress(){
