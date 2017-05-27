@@ -83,10 +83,6 @@ public class LobbyProtectionConfiguration implements ProtectionConfiguration {
         return false;
     }
 
-    @Override
-    public boolean canSpawnEntities() {
-        return false;
-    }
 
     @Override
     public GameMode getDefaultGamemode() {
@@ -197,4 +193,5 @@ public class LobbyProtectionConfiguration implements ProtectionConfiguration {
     public boolean entitiesCanDamage() {
         return false;
     }
+
 }
