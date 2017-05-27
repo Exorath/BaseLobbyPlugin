@@ -177,4 +177,24 @@ public class LobbyProtectionConfiguration implements ProtectionConfiguration {
     public boolean canHunger() {
         return false;
     }
+
+    @Override
+    public boolean canSpawnCreatures() {
+        return false;
+    }
+
+    @Override
+    public boolean canSpawnersSpawn() {
+        return false;
+    }
+
+    @Override
+    public boolean canItemSpawn() {
+        return false;
+    }
+
+    @Override
+    public boolean entitiesCanDamage() {
+        return false;
+    }
 }
