@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * Created by toonsev on 5/17/2017.
  */
-public class MapsManager implements Listener{
+public class MapsManager implements Listener {
     private ExoWorld lobbyMap;
 
     public MapsManager() {
@@ -48,7 +48,7 @@ public class MapsManager implements Listener{
         this.lobbyMap = exoWorlds.get(new Random().nextInt(exoWorlds.size()));
         if (lobbyMap.getConfiguration() == null)
             Main.terminate("The map " + lobbyMap.getMapName() + " is not configured. Please add an exomap.yml Shutting down!");
-        lobbyMap.getWorld().setSpawnLocation( lobbyMap.getSpawn().getBlockX(), lobbyMap.getSpawn().getBlockY(), lobbyMap.getSpawn().getBlockZ());
+        lobbyMap.getWorld().setSpawnLocation(lobbyMap.getSpawn().getBlockX(), lobbyMap.getSpawn().getBlockY(), lobbyMap.getSpawn().getBlockZ());
     }
 
     private List<ExoWorld> getExoMapNames() {
@@ -68,25 +68,24 @@ public class MapsManager implements Listener{
     }
 
     @EventHandler
-    public void onPlayerSpawnLocationReq(PlayerSpawnLocationEvent event){
+    public void onPlayerSpawnLocationReq(PlayerSpawnLocationEvent event) {
         event.setSpawnLocation(getLobbyMap().getSpawn());
     }
 
     @EventHandler
-    public void onRespawn(PlayerRespawnEvent event){
+    public void onRespawn(PlayerRespawnEvent event) {
         event.setRespawnLocation(getLobbyMap().getSpawn());
     }
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageEvent event){
-        if(event.getEntity() instanceof Player){
-            if(event.getCause() == EntityDamageEvent.DamageCause.VOID)
+    public void onPlayerDamage(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player)
+            if (event.getCause() == EntityDamageEvent.DamageCause.VOID)
                 event.getEntity().teleport(getLobbyMap().getSpawn());
-        }
     }
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent event){
+    public void onDeath(PlayerDeathEvent event) {
         event.setDeathMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "Respawning...");
         event.getEntity().spigot().respawn();
     }
