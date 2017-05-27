@@ -167,4 +167,14 @@ public class LobbyProtectionConfiguration implements ProtectionConfiguration {
     public long getInitialTime() {
         return 12000;
     }
+
+    @Override
+    public boolean canTakeDamage() {
+        return false;
+    }
+
+    @Override
+    public boolean canHunger() {
+        return false;
+    }
 }
