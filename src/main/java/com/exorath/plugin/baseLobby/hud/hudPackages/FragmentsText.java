@@ -50,33 +50,54 @@ public class FragmentsText implements HUDText {
     @Override
     public Observable<List<TextComponent>> getTextObservable() {
         return Observable.<List<TextComponent>>create(s -> {
-            TextComponent amountComponent = new TextComponent(getSuffix(getFragments()));
-            amountComponent.setColor(ChatColor.GOLD);
-            s.onNext(Arrays.asList(FRAGMENT_PREFIX, amountComponent));
+            TextComponent goodText = new TextComponent(getGoodString(getFragments()));
+            goodText.setColor(ChatColor.GOLD);
+            TextComponent badText = new TextComponent(getBadString(getFragments()));
+            badText.setColor(ChatColor.GRAY);
+            s.onNext(Arrays.asList(FRAGMENT_PREFIX, goodText, badText));
         }).subscribeOn(Schedulers.io());
     }
 
-    private String getSuffix(int fragments) {
+    private String getGoodString(int fragments) {
+        String suffix;
+        switch (fragments) {
+            case 0:
+                suffix = "";
+                break;
+            case 1:
+                suffix = "⦿";
+                break;
+            case 2:
+                suffix = "⦿⦿";
+                break;
+            case 3:
+                suffix = "⦿⦿⦿";
+                break;
+            default:
+                suffix = fragments + "";
+        }
+        return suffix;
+    }
+    private String getBadString(int fragments) {
         String suffix;
         switch (fragments) {
             case 0:
                 suffix = "⦾⦾⦾";
                 break;
             case 1:
-                suffix = "⦿⦾⦾";
+                suffix = "⦾⦾";
                 break;
             case 2:
-                suffix = "⦿⦿⦾";
+                suffix = "⦾";
                 break;
             case 3:
-                suffix = "⦿⦿⦿";
+                suffix = "";
                 break;
             default:
-                suffix = fragments +  " / 3";
+                suffix = " / 3";
         }
         return suffix;
     }
-
     private int getFragments() {
         return mysteryKeyServiceAPI.getPlayer(player.getUniqueId().toString()).getFragments();
     }
